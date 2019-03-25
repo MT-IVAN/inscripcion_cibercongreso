@@ -1,0 +1,46 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8"> {% block extrastatic %} {% endblock %}
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <title>{% block title %}Document {% endblock %}</title>
+</head>
+
+<body>
+    <div class="container">
+
+        {% block navbar %}
+        <div class="bs-docs-section clearfix">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="bs-component">
+                        <nav class="navbar navbar-default">
+                            <!-- aplica el color azul del header-->
+
+                            <div class="navbar-header">
+                                <h1 style="color:white" href="#">  Incripciones a cursos del cibercongreso</h1>
+                            </div>
+
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% endblock %} {% block content %}
+        <h4> Bloque de contenido </h4>
+        {% endblock %} {% block footer %} {% endblock%}
+    </div>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    {% block extrajs %} {% endblock %}
+
+
+</body>
+
+</html>

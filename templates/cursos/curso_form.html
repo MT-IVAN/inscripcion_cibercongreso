@@ -1,0 +1,9 @@
+{% extends 'base/base.html' %} {% block content %}
+
+<form method="POST" action="{% url 'comprobar' form.id %}"><!--dejarlo como hidden-->
+    {% csrf_token %} <h2>{{form}}</h2>
+    <input required name="cedula" type="number" class="form-control" placeholder="Ingrese su cedula"> <br>
+    <input class="btn btn-default" type="submit" value="Inscribirse ahora">
+</form>
+
+{% endblock %}

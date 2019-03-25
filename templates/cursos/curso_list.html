@@ -1,0 +1,35 @@
+{% extends 'base/base.html' %} {% block content %}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <td><strong>Título</strong></td>
+            <td><strong>Cupos disponibles</strong></td>
+            <td><strong>Fecha</strong></td>
+            <td><strong>lugar</strong></td>
+            <td><strong>Ponente</strong></td>
+            <td><strong>Incripción</strong></td>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% if object_list %} {% for curso in object_list %}
+        <tr>
+            <td>{{ curso.nombre }}</td>
+            <td>{{ curso.cupo }}</td>
+            <td>{{ curso.fecha }}</td>
+            <td>{{ curso.lugar }}</td>
+            <td>{{ curso.ponente }}</td>
+            <td>
+                <a class="btn btn-success" href="{% url 'incripcion' curso.id  %}">Inscribete aqui</a>
+
+            </td>
+        </tr>
+        {% endfor %} {% else %}
+        <h2>No hay cursos disponibles</h2>
+        {% endif %}
+    </tbody>
+</table>
+
+
+{%endblock%}
