@@ -4,10 +4,16 @@ from apps.curso.models import Curso, Persona
 from apps.curso.forms import CursoFrom, PersonaFrom
 from django.views.generic import ListView, CreateView
 from django.urls import reverse, reverse_lazy, resolve
+import json, socket
+from rest_framework import viewsets
+from apps.curso.serializers import UserSerializer
+
+
 # Create your views here.
 
 def mostrarIncripcion(request, id_curso):
     curso = Curso.objects.get(id=id_curso)
+
     return render(request, 'cursos/curso_form.html', {'form':curso})
 
 def comprobarInscripcion(request, id_curso):
@@ -18,10 +24,10 @@ def comprobarInscripcion(request, id_curso):
         persona = Persona()
         try:
             #verifico que la persona exista
-            persona = Persona.objects.get(identificacion=cedula)
+            persona = Persona.objects.get(id=cedula)
         except persona.DoesNotExist:
             #si no existe la persona
-            persona = "La cedula '"+ cedula + "' no se encuentra registrada"
+            persona = "La cedula '"+ cedula + "' no se encuentra registrada. Si ya realizo el pago de la incripciòn del cibercongreso por favor espere 24 horas para que se pueda inscribir en uno de los talleres disponibles"
             return render(request, 'cursos/cedula_no_encontrada.html', {'form':persona})
             #incribo a la persona si no esta registrada en nada
         if persona.curso =='' or persona.curso is None:
@@ -33,7 +39,7 @@ def comprobarInscripcion(request, id_curso):
             return render(request, 'cursos/registro_exitoso.html', {'form':persona})
             #valido cuando se registra en el mismo curso
         elif persona.curso_id is not None and persona.curso_id == id_curso:
-            persona = 'Ya estás registrado en este curso'
+            persona = 'Ya estás registrado en este taller'
             return render(request, 'cursos/registro_mismo_curso.html', {'form':persona})
             #cuando la persona se intenta registrar en un curso diferente al que esta registrado
         elif persona.curso_id is not None and persona.curso_id != id_curso:
@@ -52,8 +58,9 @@ def cambiarIncripcionCurso(request):
         id_curso_viejo = request.POST['cursoAntiguo'] 
         id_persona = request.POST['persona']
         cursoViejo = Curso.objects.get(id = id_curso_viejo)
-        persona = Persona.objects.get(identificacion= id_persona)
-        cursoViejo.cupo = cursoViejo.cupo + 1
+        #print(id_persona)
+        persona = Persona.objects.get(id= id_persona)
+        cursoViejo.cupo = cursoViejo.cupo + 1   
         cursoViejo.save()
         persona.curso_id = cursoNuevo.id
         persona.save()
@@ -73,6 +80,10 @@ class ListarCursos(ListView):
 
 class CreateForm(CreateView):
     model = Persona
-    fields = ['identificacion']
+    fields = ['id']
     template_name = 'curso_form.html'
     success_url = reverse_lazy('incripcion')
+
+class PersonaApi(viewsets.ModelViewSet):
+    queryset =  Persona.objects.all()
+    serializer_class = UserSerializer

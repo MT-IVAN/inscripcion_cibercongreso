@@ -2,13 +2,18 @@
 {% block content %} 
 
 
-<h4 style="color:black">{{form}}</h4> 
+<!-- <h4 style="color:black">{{form}}</h4>  -->
+<p>Actualmente te encuentras registrado en el curso <g style="font-size:20px; color:red">{{cursoAntiguo}}</g>, Si desea quedar inscrito en el curso <g style="color:green; font-size:20px">{{cursoNuevo}}</g> preciona el boton aceptar.</p>
+
+
+
 <br>
 <form method="POST" action="{% url 'cambiar' %}">
     {% csrf_token %}
     <input name="cursoAntiguo" type="hidden" value="{{cursoAntiguo.id}}">
+    
     <input name="cursoNuevo" type="hidden" value="{{cursoNuevo.id}}">
-    <input name="persona" type="hidden" value="{{formDos.identificacion}}">
+    <input name="persona" type="hidden" value="{{formDos.id}}">
     <input class="btn btn-success" type="submit" value="Aceptar">
     <a class="btn btn-danger" href="/cursos">Regresar</a>
 </form>

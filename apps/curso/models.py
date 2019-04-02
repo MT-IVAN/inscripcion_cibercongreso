@@ -5,19 +5,27 @@ from django.db import models
 class Curso(models.Model):
     nombre = models.CharField(max_length=100)
     cupo = models.IntegerField()
-    fecha = models.DateTimeField()    
+    fecha = models.DateField()
+    hI = models.TimeField()
+    hF = models.TimeField()
     lugar = models.CharField(max_length=100)
     ponente = models.CharField(max_length=100)
-    computador = models.BooleanField()
     
+    #Devuelve el nombre
     def __str__(self):
             return '{}'.format(self.nombre)
+    # unicode y Meta son para organizar las lista por nobre
+    def __unicode__(self): 
+        return self.nombre
+    #organizar lista
+    class Meta:
+        ordering = ['nombre']
+
 
 
 class Persona(models.Model):
-    identificacion = models.CharField(primary_key=True, max_length=10)
-    nombreCompleto = models.CharField(max_length=50)
-    apellido = models.CharField(max_length=50)
+    id = models.CharField(primary_key=True, max_length=10)
+    nombreCompleto = models.CharField(max_length=60)
     fecha = models.DateField()
     numCupon = models.CharField(max_length=6)
     valor = models.CharField(max_length=9)
@@ -25,6 +33,6 @@ class Persona(models.Model):
 
     def __str__(self):
             return '{}'.format(self.nombreCompleto)
-
+    
 
 

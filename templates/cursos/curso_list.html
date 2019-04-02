@@ -6,6 +6,8 @@
             <td><strong>Título</strong></td>
             <td><strong>Cupos disponibles</strong></td>
             <td><strong>Fecha</strong></td>
+            <td><strong>Hora de inicio</strong></td>
+            <td><strong>Fecha de finalización</strong></td>
             <td><strong>lugar</strong></td>
             <td><strong>Ponente</strong></td>
             <td><strong>Incripción</strong></td>
@@ -16,8 +18,10 @@
         {% if object_list %} {% for curso in object_list %}
         <tr>
             <td>{{ curso.nombre }}</td>
-            <td>{{ curso.cupo }}</td>
+            <td id="idCupo">{{ curso.cupo }}</td>
             <td>{{ curso.fecha }}</td>
+            <td>{{ curso.hI }}</td>
+            <td>{{ curso.hF }}</td>
             <td>{{ curso.lugar }}</td>
             <td>{{ curso.ponente }}</td>
             <td>
@@ -30,6 +34,54 @@
         {% endif %}
     </tbody>
 </table>
+<div class="estosCupo">
+
+</div>
+
+<!-- cuadro que se muestra al iniciar la página-->
+
+
+<div class="modal fade" id="mostrarmodal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog">
+       <div class="modal-content">
+          <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+             <h3>Incripciones a cursos</h3>
+      </div>
+          <div class="modal-body">
+             <h4>Información adicional</h4>
+             La inscripción al primer congreso de ciberseguridad te da acceso a  los talleres dictados por expertos. Recuerda que <g style="color:red">solo puedes estar inscrito a un curso </g>  , sin embargo, si ya estas inscrito en un curso, puedes cambiarlo, haciendo el proceso de incripcion nuevamente, presionando en el boton <g style="color:green">  "inscríbete aqui" </g> del nuevo curso al que deseas asistir.
+      </div>
+          <div class="modal-footer">
+         <a href="#" data-dismiss="modal" class="btn btn-danger">Cerrar</a>
+      </div>
+       </div>
+    </div>
+ </div>
+
+ <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+ <script>
+    $(document).ready(function()
+    {
+       $("#mostrarmodal").modal("show");
+    });
+ </script>
+
+
+
+{% block js%}
+<script>
+console.log('js working!!');
+
+var todo = document.querySelectorAll("tbody > tr > #idCupo");
+
+todo.forEach(function(d, i){
+    console.log('Estos son los curos ' + d.toString()  +' '+i );
+});
+
+//document.querySelector('.estosCupo').innerHTML = todo;
+</script>
+{%endblock%}
 
 
 {%endblock%}

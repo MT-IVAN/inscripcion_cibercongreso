@@ -12,6 +12,8 @@ class CursoFrom(forms.ModelForm):
             'nombre',
             'cupo',
             'fecha',
+            'hI',
+            'hF',
             'lugar',
             'ponente',
         ]
@@ -19,6 +21,8 @@ class CursoFrom(forms.ModelForm):
             'nombre': 'Nombre',
             'cupo': 'Cantidad de cupos disponibles',
             'fecha': 'Fecha y hora del curso',
+            'hI': 'Hora de inicio',
+            'hF': 'Hora de finalizacion',
             'lugar': 'Lugar',
             'ponente': 'Ponente',
         }
@@ -26,6 +30,8 @@ class CursoFrom(forms.ModelForm):
             'nombre': forms.TextInput(attrs={'class': 'form-control'}), 
             'cupo': forms.TextInput(attrs={'class': 'form-control'}),
             'fecha' : forms.TextInput(attrs={'class': 'form-control'}),
+            'hI' : forms.TextInput(attrs={'class': 'form-control'}),
+            'hF' : forms.TextInput(attrs={'class': 'form-control'}),
             'lugar': forms.TextInput(attrs={'class': 'form-control'}),
             'ponente': forms.TextInput(attrs={'class': 'form-control'}),
             
@@ -34,15 +40,16 @@ class CursoFrom(forms.ModelForm):
 class PersonaFrom(forms.ModelForm):
     class Meta:
         model = Persona
+        include = ('id',)
         fields = "__all__" 
 
 
         field = [
-            'identificacion',
+            'id',
         ]
         labels = {
-            'identificacion': 'Identificación',
+            'id': 'Identificación',
         }
         widgets = {
-            'identificacion': forms.TextInput(attrs={'class': 'form-control'}),            
+            'id': forms.TextInput(attrs={'class': 'form-control'}),            
         }
