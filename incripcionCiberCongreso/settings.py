@@ -37,14 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'import_export',
-    'rest_framework',
-    'corsheaders',
+    # 'import_export',
+    # 'rest_framework',
+    #'corsheaders',
+    'channels',
     'apps.curso',
-   # 'channels',
+    
 ]
 
-#ASGI_APPLICATION = 'incripcionCiberCongreso.wsgi.application'
 
 
 MIDDLEWARE = [
@@ -78,6 +78,16 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'incripcionCiberCongreso.wsgi.application'
+ASGI_APPLICATION = 'incripcionCiberCongreso.wsgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('192.168.99.100', 6379)],
+        },
+    },
+}
 
 
 # Database

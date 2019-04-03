@@ -4,9 +4,7 @@ from apps.curso.models import Curso, Persona
 from apps.curso.forms import CursoFrom, PersonaFrom
 from django.views.generic import ListView, CreateView
 from django.urls import reverse, reverse_lazy, resolve
-import json, socket
-from rest_framework import viewsets
-from apps.curso.serializers import UserSerializer
+import json
 
 
 # Create your views here.
@@ -86,6 +84,6 @@ class CreateForm(CreateView):
     template_name = 'curso_form.html'
     success_url = reverse_lazy('incripcion')
 
-class PersonaApi(viewsets.ModelViewSet):
-    queryset =  Persona.objects.all()
-    serializer_class = UserSerializer
+# class PersonaApi(viewsets.ModelViewSet):
+#     queryset =  Persona.objects.all()
+#     serializer_class = UserSerializer
