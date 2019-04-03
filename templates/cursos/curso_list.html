@@ -25,8 +25,15 @@
             <td>{{ curso.lugar }}</td>
             <td>{{ curso.ponente }}</td>
             <td>
-                <a class="btn btn-success" href="{% url 'incripcion' curso.id  %}">Inscribete aqui</a>
-
+                {% if curso.cupo < 1 %}
+                <a class="btn btn-success" href="#" disabled="disabled">Inscribete aqui</a>
+                {% else %}
+                <form method="POST" action="{% url 'incripcion' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name=curso_id value="{{curso.id}}">
+                    <input class="btn btn-success" type="submit" value="Inscribete aqui">
+                </form>
+                {% endif%}
             </td>
         </tr>
         {% endfor %} {% else %}
@@ -59,6 +66,15 @@
     </div>
  </div>
 
+<h3>Comprar inscripción</h3>
+<form  method="POST">
+    <input class="form-control"><br>
+    <input class="btn btn-primary" type="submit">
+
+</form>
+
+
+ 
  <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
  <script>
     $(document).ready(function()
@@ -78,6 +94,8 @@ var todo = document.querySelectorAll("tbody > tr > #idCupo");
 todo.forEach(function(d, i){
     console.log('Estos son los curos ' + d.toString()  +' '+i );
 });
+
+
 
 //document.querySelector('.estosCupo').innerHTML = todo;
 </script>

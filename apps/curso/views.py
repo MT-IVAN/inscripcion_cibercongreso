@@ -11,12 +11,13 @@ from apps.curso.serializers import UserSerializer
 
 # Create your views here.
 
-def mostrarIncripcion(request, id_curso):
+def mostrarIncripcion(request):
+    id_curso = request.POST["curso_id"]
     curso = Curso.objects.get(id=id_curso)
-
     return render(request, 'cursos/curso_form.html', {'form':curso})
 
-def comprobarInscripcion(request, id_curso):
+def comprobarInscripcion(request):
+    id_curso = request.POST["curso_id"]
     cupoCurso = Curso.objects.get(id=id_curso)
     if cupoCurso.cupo >0:
         #Obtengo la cedula que es ingresada
@@ -70,6 +71,7 @@ def cambiarIncripcionCurso(request):
     else:
         return render(request, 'cursos/cupo_completo.html')
     
+
 
 
 

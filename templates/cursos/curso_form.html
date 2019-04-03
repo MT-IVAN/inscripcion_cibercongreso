@@ -1,9 +1,9 @@
 {% extends 'base/base.html' %} {% block content %}
 
-<form method="POST" action="{% url 'comprobar' form.id %}"><!--dejarlo como hidden-->
+<form method="POST" action="{% url 'comprobar' %}"><!--dejarlo como hidden-->
     {% csrf_token %} <h2>{{form}}</h2>
     <input id="cedula" name="cedula" type="number" class="form-control" placeholder="Ingrese su cedula"> <br>
-
+    <input type="hidden" name="curso_id" value="{{form.id}}"> 
     <!-- <input class="btn btn-default" type="submit" value="Inscribirse ahora"> -->
 
     <!-- launch modal code -->
@@ -12,6 +12,9 @@
     <button id="launcherModal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#tag">
     Inscribirse ahora
     </button>
+    <a class="btn btn-danger" href="/cursos">
+        Regresar
+    </a>
   
     <!-- correct Modal  -->
     <div class="modal fade" id="tag" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

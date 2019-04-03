@@ -10,8 +10,8 @@ router.register('users', PersonaApi)
 
 urlpatterns = [
     path('', ListarCursos.as_view(), name='curso_listar'),
-    path('inscripcion/<int:id_curso>', mostrarIncripcion, name='incripcion'),
-    path('comprobar/<int:id_curso>', comprobarInscripcion, name='comprobar'),
+    path('inscripcion', mostrarIncripcion, name='incripcion'),
+    path('comprobar', comprobarInscripcion, name='comprobar'),
     path('cambiar_curso', cambiarIncripcionCurso, name='cambiar'),
     path('api',include(router.urls)),
      
